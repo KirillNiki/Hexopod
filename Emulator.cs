@@ -3,7 +3,7 @@ using System.IO.Ports;
 namespace Hexapod;
 class CPort
 {
-    public static bool emulate = false;
+    public static bool emulate = true;
     private SerialPort? port;
     public CPort(bool emulate)
     {

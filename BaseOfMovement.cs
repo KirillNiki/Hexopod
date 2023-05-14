@@ -54,7 +54,7 @@ class BaseOfMovement
             if (translateVectorAngleToAdd != -1)
                 angleToAdd += translateVectorAngleToAdd;
 
-            Console.WriteLine($"{servoIndex1} {-translateVectorAngle + angleToAdd}");
+            ServoPosWrite(servoIndex1, -translateVectorAngle + angleToAdd, true);
         }
 
 
@@ -100,6 +100,8 @@ class BaseOfMovement
     /// </summary>
     public static void ServoPosWrite(int servoIndex, double angle, bool addLoseAngle)
     {
+        Console.WriteLine(">>>>>>>>>>>>>>>");
+
         double pos;
         if (Info.AllServos[servoIndex].minAngle < Info.AllServos[servoIndex].maxAngle)
             pos = Info.AllServos[servoIndex].minAngle + angle;

@@ -39,12 +39,12 @@ public static class Info
     /// (int, int, int)[] <c>DegreeAngles</c> for first 6 servo which level is first,  represents angle betwin forwardRey and rey that you want: (servoIndex, minAngle, maxAngle)
     /// </summary>
     public static readonly (int, int, int)[] DegreeAngles = new (int, int, int)[6] {
-        new (0, 140, 85),  //0
+        new (0, 145, 85),  //0
         new (1, 130, 45),  //1
         new (2, 95, 50),   //2
         new (3, 95, 50),   //3
         new (4, 130, 45),  //4
-        new (5, 140, 85)   //5
+        new (5, 145, 85)   //5
     };
 
 
