@@ -9,7 +9,7 @@ class HexapodControll
 {
     const int startVal = 0;
     static double lastAngle = -1;
-    public static double angle = 270;
+    public static double angle = -1;
     static int x = startVal;
     static int y = startVal;
     public enum turnRobot { left, right, none }
