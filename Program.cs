@@ -7,6 +7,7 @@ namespace Hexapod;
 
 class HexapodControll
 {
+    //jkrjkgllkeg
     const int startVal = 0;
     static double lastAngle = -1;
     public static double angle = -1;
