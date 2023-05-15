@@ -9,7 +9,7 @@ class HexapodControll
 {
     const int startVal = 0;
     static double lastAngle = -1;
-    public static double angle = 225;
+    public static double angle = -1;
     static int x = startVal;
     static int y = startVal;
     public enum turnRobot { left, right, none }
@@ -46,6 +46,9 @@ class HexapodControll
     private static int rotateIteration = 0;
     private static System.Timers.Timer aTimer;
     static bool moveInProgress;
+    static bool isStaticRotation = false;
+    static bool isDisRotation = false;
+
 
     static GamepadController gamepad = new GamepadController(CPort.emulate ? "" : "/dev/input/js0");
     private static void Main()
@@ -100,10 +103,10 @@ class HexapodControll
             }
             if (angle != -1)
             {
-                Console.WriteLine("angle   " + angle);
-                if (Math.Abs(angle - lastAngle) >= 10 && lastAngle != -1) // angle != lastAngle
+                // Console.WriteLine("angle   " + angle);
+                if (Math.Abs(angle - lastAngle) >= 10 && lastAngle != -1)
                 {
-                    // Console.WriteLine("SetStartPos>>>>>>>>>>>>>>>>>>>");
+                    // Console.WriteLine("SetStartPos>>>>>>>>>>>>>>>>>>>1");
                     SetStartPos(true);
                     walkIteration = 0;
                 }
@@ -122,7 +125,7 @@ class HexapodControll
                 }
                 walkIteration++;
             }
-            else if (turn != turnRobot.none)
+            else if (turn != turnRobot.none && angle != 0 && angle != 180)
             {
                 if (turn != lastTurn)
                     rotateIteration = 0;
@@ -135,7 +138,7 @@ class HexapodControll
             }
             else if (angle != lastAngle && angle == -1)
             {
-                // Console.WriteLine("SetStartPos>>>>>>>>>>>>>>>>>>>");
+                Console.WriteLine("SetStartPos>>>>>>>>>>>>>>>>>>>2");
                 SetStartPos(true);
                 walkIteration = 0;
                 lastAngle = angle;
@@ -179,12 +182,11 @@ class HexapodControll
             gamepad.ButtonChanged += (object sender, ButtonEventArgs e) => { };
             gamepad.AxisChanged += (object sender, AxisEventArgs e) =>
             {
-                Console.WriteLine($"Axis {e.Axis} Changed: {e.Value}");
                 if (e.Axis == 0)
                     x = e.Value;
                 else if (e.Axis == 1)
                     y = e.Value;
-                else if (e.Axis == 2)
+                else if (e.Axis == 2 && angle != 0 && angle != 180)
                 {
                     if (e.Value > startVal + 1000)
                         turn = turnRobot.right;
@@ -192,10 +194,13 @@ class HexapodControll
                         turn = turnRobot.left;
                     else
                         turn = turnRobot.none;
+
+                    Console.WriteLine("turn" + turn);
                 }
-                Console.WriteLine("turn  " + turn);
-                Console.WriteLine("x     " + x);
-                Console.WriteLine("y     " + y);
+                else if (e.Axis == 2)
+                {
+                    turn = turnRobot.none;
+                }
 
                 if (x != startVal || y != startVal)
                 {
@@ -219,6 +224,24 @@ class HexapodControll
                 else
                     angle = -1;
 
+                if (isDisRotation)
+                    turn = turnRobot.none;
+
+                if (angle == -1 && turn != turnRobot.none)
+                    isStaticRotation = true;
+                else if (turn == turnRobot.none && isStaticRotation)
+                    isStaticRotation = false;
+
+
+                if (angle != -1 && isStaticRotation)
+                    angle = -1;
+
+                if (angle != 90 && angle != 270 && angle != -1)
+                    isDisRotation = true;
+                else if (isDisRotation && (angle == -1 || angle == 270 || angle == 90))
+                    isDisRotation = false;
+
+                // Console.WriteLine("angle" + angle);
             };
 
             Console.ReadLine();
@@ -324,7 +347,7 @@ class HexapodControll
         Thread.Sleep(1000);
 
 
-        Console.WriteLine(hight);
+        // Console.WriteLine(hight);
     }
 
 
@@ -337,14 +360,17 @@ class HexapodControll
         for (int i = 0; i < Info.ThreepodServoGroups.Length; i++)
         {
             WalkParts.SetLegGroupForwardUp(i, mainAngle, true, turnRobot);
+            // Thread.Sleep(5000);
 
             int groupIndex = i == 0 ? 1 : 0;
             WalkParts.SetLegGroupBack(groupIndex, mainAngle, true, turnRobot);
+            // Thread.Sleep(5000);
 
             port.Write($"T200\r\n");
             Thread.Sleep(300);
 
             WalkParts.SetLegGroupForwardDown(i, true);
+            // Thread.Sleep(5000);
             port.Write($"\r\n");
             Thread.Sleep(300);
         }
@@ -422,11 +448,11 @@ class HexapodControll
 
     static void Rotate(int iteration, turnRobot turnRobot)
     {
+        Console.WriteLine(">>>>>>>>>>>>>>>>>>11111");
         if (iteration == 0)
         {
             for (int i = 0; i < Info.ThreepodServoGroups.Length; i++)
                 PutLegGroupOnCircle(i, changeLegPosState.upAndDown);
-            Console.WriteLine(">>>>>>>>>>>>>>>>>>>>>>>");
         }
 
         double hexapodRadiusAngle = (180 - rotationAngle) / 2 * anglePerDegree;
@@ -505,8 +531,6 @@ class HexapodControll
         for (int j = 0; j < Info.ThreepodServoGroups[groupIndex].Length; j++)
         {
             int servoIndex1 = Info.ThreepodServoGroups[groupIndex][j][0];
-            Console.WriteLine("indexOfLeg" + servoIndex1);
-
             double newProjection = 0;
             double translateVectorAngle = 0;
             translateVectorAngle = Info.AllServos[servoIndex1].startAngle - Info.AllServos[servoIndex1].currentAngle; // can be negative
@@ -541,7 +565,7 @@ class HexapodControll
             }
         }
         port.Write("\r\n");
-        Thread.Sleep(400);
+        Thread.Sleep(200);
 
         if (changeLegPosState == changeLegPosState.upAndDown)
         {
@@ -551,7 +575,7 @@ class HexapodControll
                 BaseOfMovement.SetLegDown(groupIndex, j, Info.Porjections[servoIndex1], 200, 200, true);
             }
             port.Write("\r\n");
-            Thread.Sleep(300);
+            Thread.Sleep(200);
         }
     }
 }

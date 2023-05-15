@@ -71,7 +71,9 @@ class WalkParts
                 newProjection = Formulas.Formulas.TheoremCosLine(translateVector, HexapodControll.startProjection, newProjectionAngle);
 
             double translateVectorAngleToAdd = -1;
-            translateVectorAngleToAdd = Math.Abs(Info.AllServos[servoIndex1].currentAngle - Info.AllServos[servoIndex1].startAngle);
+            if (mainAngle == 90 || mainAngle == 270)
+                translateVectorAngleToAdd = Math.Abs(Info.AllServos[servoIndex1].currentAngle - Info.AllServos[servoIndex1].startAngle);
+                
             BaseOfMovement.SetLegUp(groupIndex, j, newProjection, newProjectionAngle, translateVector, walkState, 50, 50, 100, isThreepod, -1, translateVectorAngleToAdd);
         }
     }

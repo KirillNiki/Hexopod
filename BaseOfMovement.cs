@@ -23,7 +23,6 @@ class BaseOfMovement
         }
 
         Info.Porjections[servoIndex1] = newProjection;
-        Console.WriteLine(servoIndex1 + "newProjectionAngle  " + newProjectionAngle);
         if (translateVectorAngle == -1)
             translateVectorAngle = Formulas.Formulas.TheoremSin(translateVector, newProjection, newProjectionAngle); //first angle
 
@@ -52,7 +51,7 @@ class BaseOfMovement
                 (walkState == HexapodControll.walkState.right && (servoIndex1 == 2 || servoIndex1 == 5)))
         {
             if (translateVectorAngleToAdd != -1)
-                angleToAdd += translateVectorAngleToAdd;
+                angleToAdd -= translateVectorAngleToAdd;
 
             ServoPosWrite(servoIndex1, -translateVectorAngle + angleToAdd, true);
         }
@@ -100,8 +99,6 @@ class BaseOfMovement
     /// </summary>
     public static void ServoPosWrite(int servoIndex, double angle, bool addLoseAngle)
     {
-        Console.WriteLine(">>>>>>>>>>>>>>>");
-
         double pos;
         if (Info.AllServos[servoIndex].minAngle < Info.AllServos[servoIndex].maxAngle)
             pos = Info.AllServos[servoIndex].minAngle + angle;
