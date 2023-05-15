@@ -138,7 +138,7 @@ class HexapodControll
             }
             else if (angle != lastAngle && angle == -1)
             {
-                Console.WriteLine("SetStartPos>>>>>>>>>>>>>>>>>>>2");
+                // Console.WriteLine("SetStartPos>>>>>>>>>>>>>>>>>>>2");
                 SetStartPos(true);
                 walkIteration = 0;
                 lastAngle = angle;
@@ -195,7 +195,7 @@ class HexapodControll
                     else
                         turn = turnRobot.none;
 
-                    Console.WriteLine("turn" + turn);
+                    // Console.WriteLine("turn" + turn);
                 }
                 else if (e.Axis == 2)
                 {
