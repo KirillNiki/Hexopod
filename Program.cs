@@ -9,7 +9,7 @@ class HexapodControll
 {
     const int startVal = 0;
     static double lastAngle = -1;
-    public static double angle = -1;
+    public static double angle = 270;
     static int x = startVal;
     static int y = startVal;
     public enum turnRobot { left, right, none }
@@ -54,7 +54,7 @@ class HexapodControll
     private static void Main()
     {
         Console.CancelKeyPress += new ConsoleCancelEventHandler(MyCancelEventHandler);
-        // Test();
+        Test();
         StandUp();
         moveInProgress = false;
 
@@ -195,7 +195,6 @@ class HexapodControll
                     else
                         turn = turnRobot.none;
 
-                    // Console.WriteLine("turn" + turn);
                 }
                 else if (e.Axis == 2)
                 {
