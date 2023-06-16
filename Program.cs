@@ -9,7 +9,7 @@ class HexapodControll
 {
     const int startVal = 0;
     static double lastAngle = -1;
-    public static double angle = 270;
+    public static double angle = -1;
     static int x = startVal;
     static int y = startVal;
     public enum turnRobot { left, right, none }
@@ -54,7 +54,7 @@ class HexapodControll
     private static void Main()
     {
         Console.CancelKeyPress += new ConsoleCancelEventHandler(MyCancelEventHandler);
-        Test();
+        // Test();
         StandUp();
         moveInProgress = false;
 
@@ -153,14 +153,14 @@ class HexapodControll
 
     static void Test()
     {
-        for (int i = 0; i < 6; i++)
-            port.Write($"#{Info.AllServos[i].pin}P{Info.AllServos[i].minAngle}");
+        // for (int i = 0; i < 6; i++)
+        //     port.Write($"#{Info.AllServos[i].pin}P{Info.AllServos[i].startAngle}");
 
         // for (int i = 12; i < 18; i++)
-        //     port.Write($"#{Info.AllServos[i].pin}P{Info.AllServos[i].minAngle}");
+        //     port.Write($"#{Info.AllServos[i].pin}P{Info.AllServos[i].startAngle}");
 
-        // port.Write($"T200\r\n");
-        // Thread.Sleep(300);
+        // // port.Write($"T200\r\n");
+        // // Thread.Sleep(300);
 
         // for (int i = 6; i < 12; i++)
         //     port.Write($"#{Info.AllServos[i].pin}P{Info.AllServos[i].startAngle}");
@@ -168,8 +168,8 @@ class HexapodControll
         // port.Write($"T2000\r\n");
         // Thread.Sleep(3000);
 
-        // foreach (Info.ServoInfo servo in Info.AllServos)
-        //     port.Write($"#{servo.pin}P{servo.startAngle}");
+        foreach (Info.ServoInfo servo in Info.AllServos)
+            port.Write($"#{servo.pin}P{servo.startAngle}");
         port.Write("T300\r\n");
         Thread.Sleep(300);
     }
