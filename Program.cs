@@ -53,8 +53,8 @@ class HexapodControll
     static GamepadController gamepad = new GamepadController(CPort.emulate ? "" : "/dev/input/js0");
     private static void Main()
     {
-        Console.WriteLine(">>>>>>>>>>>>>>>.");
         Console.CancelKeyPress += new ConsoleCancelEventHandler(MyCancelEventHandler);
+        LegInfo.InitLegs();
         // Test();
         StandUp();
         moveInProgress = false;
