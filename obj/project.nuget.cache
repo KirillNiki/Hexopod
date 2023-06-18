@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "3C6siU8NyHtv8GIiuprAhwPZ/KyLuDGs/J5Dl/VqaJwWSTUWudlX09ClNdBwR/UuDaWVHSye6Rq5b2cwT//UKQ==",
+  "dgSpecHash": "EGxC/YJ7YSdv4pt62Qmavaht3EFZSGmEVrTExvY9ScRJSggt410ckOBXOFUNXL4cqs70xgC65ev7yclkWhPTyA==",
   "success": true,
   "projectFilePath": "/Users/emac/Documents/VSCode/Hexopod/gpioTests.csproj",
   "expectedPackageFiles": [
@@ -37,6 +37,7 @@
     "/Users/emac/.nuget/packages/system.collections/4.3.0/system.collections.4.3.0.nupkg.sha512",
     "/Users/emac/.nuget/packages/system.collections.concurrent/4.3.0/system.collections.concurrent.4.3.0.nupkg.sha512",
     "/Users/emac/.nuget/packages/system.console/4.3.0/system.console.4.3.0.nupkg.sha512",
+    "/Users/emac/.nuget/packages/system.device.gpio/2.2.0/system.device.gpio.2.2.0.nupkg.sha512",
     "/Users/emac/.nuget/packages/system.diagnostics.debug/4.3.0/system.diagnostics.debug.4.3.0.nupkg.sha512",
     "/Users/emac/.nuget/packages/system.diagnostics.diagnosticsource/4.3.0/system.diagnostics.diagnosticsource.4.3.0.nupkg.sha512",
     "/Users/emac/.nuget/packages/system.diagnostics.tools/4.3.0/system.diagnostics.tools.4.3.0.nupkg.sha512",
@@ -86,9 +87,9 @@
     "/Users/emac/.nuget/packages/system.threading.timer/4.3.0/system.threading.timer.4.3.0.nupkg.sha512",
     "/Users/emac/.nuget/packages/system.xml.readerwriter/4.3.0/system.xml.readerwriter.4.3.0.nupkg.sha512",
     "/Users/emac/.nuget/packages/system.xml.xdocument/4.3.0/system.xml.xdocument.4.3.0.nupkg.sha512",
-    "/Users/emac/.nuget/packages/microsoft.netcore.app.ref/6.0.16/microsoft.netcore.app.ref.6.0.16.nupkg.sha512",
     "/Users/emac/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.16/microsoft.aspnetcore.app.ref.6.0.16.nupkg.sha512",
-    "/Users/emac/.nuget/packages/microsoft.netcore.app.host.osx-x64/6.0.16/microsoft.netcore.app.host.osx-x64.6.0.16.nupkg.sha512"
+    "/Users/emac/.nuget/packages/microsoft.netcore.app.host.osx-x64/6.0.16/microsoft.netcore.app.host.osx-x64.6.0.16.nupkg.sha512",
+    "/Users/emac/.nuget/packages/microsoft.netcore.app.ref/6.0.16/microsoft.netcore.app.ref.6.0.16.nupkg.sha512"
   ],
   "logs": []
 }

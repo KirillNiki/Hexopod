@@ -1,4 +1,6 @@
-﻿using System.IO.Ports;
+﻿
+using System.Device.Gpio;
+using System.IO.Ports;
 using Gamepad;
 using Support;
 using System.Timers;
@@ -7,6 +9,10 @@ namespace Hexapod;
 
 class HexapodControll
 {
+    private static int EyesPinout = 10;
+    private static int EyesPinin = 8;
+
+
     const int startVal = 0;
     static double lastAngle = -1;
     public static double angle = -1;
@@ -42,6 +48,7 @@ class HexapodControll
     public enum changeLegPosState { justDown, upAndDown };
 
     public static CPort port = new CPort(CPort.emulate);
+    private static GpioController gpioController = new GpioController();
     private static int walkIteration = 0;
     private static int rotateIteration = 0;
     private static System.Timers.Timer aTimer;
@@ -371,7 +378,7 @@ class HexapodControll
 
             WalkParts.SetLegGroupForwardDown(i, true);
             // Thread.Sleep(5000);
-            port.Write($"\r\n");
+            port.Write($"T200\r\n");
             Thread.Sleep(300);
         }
     }
@@ -442,6 +449,13 @@ class HexapodControll
                 Thread.Sleep(walkingTime * 2);
             }
         }
+    }
+
+
+
+    static void WaitingLegGroupDown()
+    {
+        
     }
 
 

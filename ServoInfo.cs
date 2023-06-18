@@ -2,6 +2,9 @@ namespace Support;
 
 public static class Info
 {
+    public static ServoInfo eyesServo = new ServoInfo() {pin = };
+
+
     public struct ServoInfo
     {
         public double pin { get; init; }
@@ -33,6 +36,7 @@ public static class Info
         new ServoInfo() with { pin = 29, minAngle = 2100, maxAngle = 500, startAngle = 1350 , currentAngle = 1400 }   //17
     };
     public static double[] Porjections = new double[6];
+    public static bool[] IsLegStanding = new bool[6];
 
 
     /// <summary>

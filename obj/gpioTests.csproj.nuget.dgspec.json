@@ -42,6 +42,10 @@
               "target": "Package",
               "version": "[4.2.0, )"
             },
+            "System.Device.Gpio": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
             "System.IO.Ports": {
               "target": "Package",
               "version": "[6.0.0, )"
